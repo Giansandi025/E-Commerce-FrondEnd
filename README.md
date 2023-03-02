@@ -86,7 +86,7 @@ npm install
 
 | Chekout Page                                                                                                    | Profile Page                                                                                                            |
 | ---------------------------------------------------------------------------------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
-| ![Chekout](https://github.com/Giansandi025/E-Commerce-FrondEnd/blob/main/ss/chekout.png "Chekout Page") | ![Profile](https://github.com/Giansandi025/E-Commerce-FrondEnd/blob/main/ss/profil.png "Profile Page") |
+| ![Chekout](https://github.com/Giansandi025/E-Commerce-FrondEnd/blob/main/ss/chekout1.png "Chekout Page") | ![Profile](https://github.com/Giansandi025/E-Commerce-FrondEnd/blob/main/ss/profil.png "Profile Page") |
 
 
 
