@@ -11,6 +11,7 @@ import SearchIcon from "../../assets/icons/Search.svg";
 import FilterIcon from "../../assets/icons/Filter.svg";
 import CartIcon from "../../assets/icons/Cart.svg";
 import Avatar from "../../assets/images/profile.png";
+import Search from "../../assets/images/search-img.png";
 
 class SearchItems extends React.Component {
   state = {
@@ -104,10 +105,13 @@ class SearchItems extends React.Component {
     const { searchedItems } = this.state;
     let authBtn;
 
-
+    // If user currently in logout state
+    // Show the conditional components
     if (isLogin === false) {
+      // If user logout
       authBtn = <this.state.navMenu />;
     } else {
+      // If user login
       authBtn = (
         <>
           {level === "seller" ? (
@@ -145,11 +149,13 @@ class SearchItems extends React.Component {
       <>
         <nav>
           <div className={css.NavContainer}>
+            {/* LOGO */}
             <Link className={`navbar-brand ${css.Logo}`} to='/'>
               <img className='mb-2' src={Logo} alt='Blanja logo' />
               Blanja
             </Link>
 
+            {/* SEARCH */}
             <div className={`${css.SearchArea} mx-auto`}>
               <div className={css.SearchBar}>
                 <img
@@ -181,6 +187,7 @@ class SearchItems extends React.Component {
                 />
               </button>
 
+              {/* Modal */}
               <div
                 className='modal fade'
                 id='staticBackdrop'
@@ -204,7 +211,7 @@ class SearchItems extends React.Component {
                       ></button>
                     </div>
                     <div className='modal-body'>
-
+                      {/* Color */}
                       <strong className='mb-5'>Colors</strong>
                       <br></br>
                       <div className='row mt-3 mb-3'>
@@ -243,6 +250,7 @@ class SearchItems extends React.Component {
                       </div>
                       <div className='dropdown-divider'></div>
 
+                      {/* Sorting */}
                       <strong>Sort</strong>
                       <br></br>
                       <div className='dropdown mt-2'>
@@ -338,6 +346,7 @@ class SearchItems extends React.Component {
               </div>
             </div>
 
+            {/* Auth */}
             <div className={css.NavBtn}>
               <img
                 onClick={() => this.props.history.push("/cart")}
@@ -367,9 +376,64 @@ class SearchItems extends React.Component {
             </div>
           </div>
         </nav>
+        <div className='container'>
+          <div className={css.FlexList}>
+            {searchedItems.products !== "Page not found" ? (
+              searchedItems.products &&
+              searchedItems.products.map(
+                ({
+                  product_name,
+                  product_price,
+                  image,
+                  product_brand,
+                  id,
+                  product_rating,
+                }) => {
+                  let imgSplit = image.split(",");
+                  let img = imgSplit;
+                  return (
+                    <CollectionItem
+                      idUrl={`/product/${id}`}
+                      key={id}
+                      name={product_name}
+                      brand={product_brand}
+                      img={process.env.REACT_APP_BASEURL + img[0]}
+                      rating={product_rating}
+                      price={product_price}
+                    />
+                  );
+                }
+              )
+            ) : (
+              <div className={css.EmptySearch}>
+                <img className={css.SearchImg} src={Search} alt='search' />
+                <h1>Hmm... couldn't find what you've looking for, sorry</h1>
+              </div>
+            )}
+          </div>
+        </div>
       </>
     );
   }
 }
 
-export default SearchItems;
+const mapStateToProps = (state) => {
+  return {
+    isLogin: state.auth.isLogin,
+    token: state.auth.token,
+    id: state.auth.id,
+    level: state.auth.level,
+    name: state.auth.name,
+    email: state.auth.email,
+  };
+};
+
+const mapDispatchToProps = (dispatch) => {
+  return {
+    logoutRedux: () => dispatch(logout()),
+  };
+};
+
+export default withRouter(
+  connect(mapStateToProps, mapDispatchToProps)(SearchItems)
+);
