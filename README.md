@@ -94,6 +94,7 @@ npm install
 
 - [`BACKEND BLANJA APP`](https://github.com/Giansandi025/E-Commerce-BackEnd)
 - [`FRONTEND BLANJA APP`](https://github.com/Giansandi025/E-Commerce-FrondEnd)
+- [`DEMO`](https://blanja.idolapppk.com/)
 
 
 ## License
